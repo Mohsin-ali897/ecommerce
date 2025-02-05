@@ -4,7 +4,7 @@ import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { MdAdd, MdOutlineHorizontalRule } from "react-icons/md";
-import { useUser, useClerk } from "@clerk/nextjs";
+import { useUser, useClerk } from "../../../node_modules/@clerk/nextjs/dist/types";
 import { addTocart } from "../action/action";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

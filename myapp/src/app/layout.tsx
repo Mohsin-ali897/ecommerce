@@ -49,7 +49,7 @@ import {
   SignedOut,
   SignInButton,
   UserButton,
-} from '@clerk/nextjs';
+} from '../../node_modules/@clerk/nextjs/dist/types';
 
 const poppins = Poppins({
   subsets: ['latin'],
