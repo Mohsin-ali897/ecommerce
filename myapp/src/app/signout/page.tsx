@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { SignedIn, SignedOut, SignInButton, UserButton } from '../../../node_modules/@clerk/nextjs/dist/types'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
 import Navbar from '../components/navbar'
 import Mainbanner from '../components/pagebanner'
 import Footer from '../components/footer'

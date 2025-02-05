@@ -46,4 +46,3 @@ const Page = async ({ params}:{params:{id:string}}) => {
     )
 }
 export default Page;
-// import Image from "next/image";
