@@ -1,7 +1,6 @@
 
 import React from "react";
 import { client } from "../../../sanity/lib/client";
-import { urlFor } from "../../../sanity/lib/image";
 import Navbar from "@/app/components/navbar";
 import Footer from "@/app/components/footer";
 import Mainbanner from "@/app/components/pagebanner";

@@ -3,11 +3,12 @@
 import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { MdAdd,  MdOutlineHorizontalRule } from "react-icons/md";
+import { MdAdd, MdOutlineHorizontalRule } from "react-icons/md";
 import { useUser, useClerk } from "@clerk/nextjs";
 import { addTocart } from '../action/action';
-import { Bounce, toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface Product {
     id: string;
     name: string;
@@ -22,48 +23,36 @@ interface Product {
 export default function Productlist({ product }: { product: Product }) {
     const [quantity, setQuantity] = useState(1);
     const [totalPrice, setTotalPrice] = useState(0);
-    
-//! =======================
-    const handleCartBtn = (e:any, product: Product) => {
-        e.preventDefault()
-        addTocart(product)
-        toast.success("Added to cart successfully!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            theme: "light",
-          });
-        
-
-    }
     const { isSignedIn } = useUser();
-    const { openSignUp } = useClerk(); // Function to open sign-up modal
+    const { openSignUp } = useClerk(); 
 
-    // ✅ Calculate discounted price per unit
     const discountedPrice = product.discountPercentage
         ? product.price * (1 - product.discountPercentage / 100)
         : product.price;
 
-    // ✅ Update total price when quantity changes
     useEffect(() => {
         setTotalPrice(quantity * discountedPrice);
     }, [quantity, discountedPrice]);
 
+    // ✅ Function to handle Add to Cart with Notification
+    const handleCartBtn = async (e: any, product: Product) => {
+        e.preventDefault();
+        await addTocart(product);
+        toast.success(`${product.name} added to cart successfully! 🛒`, {
+            position: "top-right",
+            autoClose: 2000,  // Notification disappears after 2 seconds
+        });
+    };
+
     const handleCheckOut = async () => {
         if (!isSignedIn) {
-            openSignUp(); // Redirect user to sign-up page
+            openSignUp();
             return;
         }
-
         try {
             const response = await fetch('/api/checkout', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ product, quantity })
             });
             const data = await response.json();
@@ -73,20 +62,9 @@ export default function Productlist({ product }: { product: Product }) {
         }
     };
 
-    const increaseQuantity = () => {
-        if (quantity < product.stockLevel) {
-            setQuantity(prev => prev + 1);
-        }
-    };
-
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(prev => prev - 1);
-        }
-    };
-
     return (
         <div className="container mx-auto p-6">
+            <ToastContainer />  {/* ✅ Toast Notification Container */}
             <div className="grid md:grid-cols-2 gap-6 bg-white p-6 rounded-lg shadow-lg">
                 {product.imageUrl && (
                     <Image
@@ -119,50 +97,20 @@ export default function Productlist({ product }: { product: Product }) {
                         <span className="text-gray-700">Stock</span> {product.stockLevel > 0 ? `${product.stockLevel}` : "Out of Stock"}
                     </div>
 
-                    <div className="text-gray-700 mt-4 flex justify-between items-center">
-                        <div>Category:</div>
-                        <div>{product.category}</div>
-                    </div>
-
-                    {/* Quantity Selector */}
                     <div className="flex items-center mt-6 space-x-4">
-                        <button
-                            onClick={decreaseQuantity}
-                            className="flex justify-center items-center bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg text-lg font-medium transition"
-                            disabled={quantity === 1}
-                        >
+                        <button className="bg-gray-300 px-4 py-2 rounded-lg" disabled={quantity === 1} onClick={() => setQuantity(prev => prev - 1)}>
                             <MdOutlineHorizontalRule className='text-2xl' />
                         </button>
                         <span className="text-xl font-semibold">{quantity}</span>
-                        <button
-                            onClick={increaseQuantity}
-                            className="flex justify-center items-center bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg text-lg font-medium transition"
-                            disabled={quantity >= product.stockLevel}
-                        >
+                        <button className="bg-gray-300 px-4 py-2 rounded-lg" disabled={quantity >= product.stockLevel} onClick={() => setQuantity(prev => prev + 1)}>
                             <MdAdd className="text-2xl" />
                         </button>
                     </div>
 
-                    {/* ✅ Total Price Display */}
-                    <div className="mt-4 text-xl font-semibold">
-                        Total: ${totalPrice.toFixed(2)}
-                    </div>
+                    <div className="mt-4 text-xl font-semibold">Total: ${totalPrice.toFixed(2)}</div>
 
                     <div className="flex space-x-4 mt-6">
-                    <ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick={false}
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-transition={Bounce}
-/>
-                        <button onClick={(e)=>handleCartBtn(e,product)} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-medium transition">
+                        <button onClick={(e) => handleCartBtn(e, product)} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-lg font-medium transition">
                             Add to Cart
                         </button>
                         <button onClick={handleCheckOut} className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg text-lg font-medium transition">
