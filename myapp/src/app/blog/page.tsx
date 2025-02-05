@@ -10,9 +10,7 @@ import { FaCalendar, FaUserAlt } from "react-icons/fa";
 import { FaTag } from "react-icons/fa6";
 import { IoMdSearch } from "react-icons/io";
 import Image from "next/image";
-import PageIcon from '@/app/assets/cartIcon.png';
-import { IoIosArrowForward } from 'react-icons/io';
-import AccountBanner from '@/app/assets/accountBanner.png';
+import Mainbanner from '../components/pagebanner';
 import Navbar from '../components/navbar';
 import Link from 'next/link';
 import Offers from '../components/offers';
@@ -52,22 +50,7 @@ export default function Blog() {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="relative w-full h-[400px] flex justify-center items-center">
-        <Image
-          src={AccountBanner}
-          alt="Shop Banner"
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0"
-        />
-        <div className="relative text-center z-10">
-          <Image src={PageIcon} alt="Shop Icon" className="m-auto mb-4" />
-          <h1 className="text-4xl font-semibold text-black">Blog</h1>
-          <p className="text-lg mt-2 text-gray-600">
-            Home <IoIosArrowForward className="inline" /> Blog
-          </p>
-        </div>
-      </div>
+      <Mainbanner pageName='Blog'></Mainbanner>
       
       {/* Blog Section */}
       <div className="px-4 lg:px-16 py-8 flex flex-col lg:flex-row gap-8">

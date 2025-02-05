@@ -9,8 +9,6 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
-import ProImg from '../assets/Asgaard sofa 1.png';
-import Image from "next/image";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

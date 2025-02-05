@@ -69,7 +69,7 @@ export default function Blog() {
       {/* View More */}
       <div className="flex justify-center items-center w-full h-auto mt-8">
         <Link
-          href="/shoppage/cartPage/account/contact/blog"
+          href="/blog"
           className="text-center font-medium text-[16px] md:text-[20px] leading-5 hover:border-b-2 hover:border-b-black hover:pb-2"
         >
           View All Post
