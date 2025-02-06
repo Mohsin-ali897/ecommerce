@@ -64,12 +64,17 @@ interface Product {
   imageUrl?: string;
 }
 
+// interface PageProps {
+//   params: { id: string };
+// }
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>; // Change from `params: { id: string };`
 }
 
 const Page = async ({ params }: PageProps) => {
-  const { id } = params;
+  // const { id } = params;
+  const resolvedParams = await params; // Ensure params is awaited
+  const { id } = resolvedParams;
 
   console.log("Fetching product with ID:", id); // Debugging
 
