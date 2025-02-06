@@ -9,18 +9,20 @@ import { addTocart } from "../action/action";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  discountPercentage?: number;
-  category: string;
-  stockLevel: number;
-  imageUrl?: string;
-}
+// interface Product {
+//   id: string ;
+//   name: string ;
+//   description: string ;
+//   price: number ;
+//   discountPercentage: number ;
+//   category: string ;
+//   stockLevel: number ;
+//   imageUrl: string ;
+//   quantity:number 
+// }
 
-export default function ProductList({ product }: { product: Product }) {
+// export default function ProductList({ product }: { product: Product }) { ti is original
+export default function ProductList({ product }:any) {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const { isSignedIn } = useUser();

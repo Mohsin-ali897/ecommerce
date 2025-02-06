@@ -3,9 +3,9 @@
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -26,3 +26,4 @@
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
+// set noEmitt, skipLibCheck  to falsse
