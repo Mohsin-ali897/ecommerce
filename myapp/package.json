@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "script": "importData.js"
+    "script": "importData.mjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.11.0",
