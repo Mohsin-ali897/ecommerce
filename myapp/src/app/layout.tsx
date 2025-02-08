@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={`${poppins.className}antialiased`}>
         
           {children}

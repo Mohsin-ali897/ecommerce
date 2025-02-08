@@ -7,6 +7,7 @@ import { IoMdSearch, IoMdHeartEmpty } from "react-icons/io";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,9 +31,17 @@ export default function Navbar() {
       {/* Action Icons */}
       <ul className="flex items-center gap-6 md:gap-[40px]">
         <li>
-          <Link href="/signout">
+          {/* <Link href="/signout">
             <MdOutlinePersonAddAlt className="text-xl md:text-2xl hover:text-gray-600" />
-          </Link>
+
+          </Link> */}
+           <SignedOut>
+            <SignInButton mode="modal" />
+          </SignedOut>
+          <SignedIn>
+            <UserButton  />
+            <SignedOut />
+          </SignedIn>
         </li>
         <li>
           <Link href="#">
